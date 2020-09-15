@@ -7,6 +7,8 @@ const postcss = require("gulp-postcss");
 const cssnano =require("cssnano");
 const autoprefixer=require("autoprefixer");
 const browserSync = require("browser-sync").create();
+const sass = require('gulp-sass');
+sass.compiler=require('node-sass');
 
 
 //sökvägar
@@ -14,7 +16,8 @@ const files = {
     htmlPath:"src/**/*.html",
     cssPath:"src/**/*.css",
     jsPath:"src/**/*.js",
-    imgPath:"src/images/*"
+    imgPath:"src/images/*",
+    sassPath:"src/**/*.scss"
 };
 //kopiera html filer
 function copyHTML(){
@@ -43,7 +46,7 @@ function imgTask(){
     .pipe(dest('pub/images')
     );
 }
-//slå samman css o minifiera css filer
+/*slå samman css o minifiera css filer
 function cssTask(){
     return src(files.cssPath)
     .pipe(sourcemaps.init())
@@ -53,7 +56,16 @@ function cssTask(){
     .pipe(dest('pub/css'))
     .pipe(browserSync.stream()
     );
+}*/
+function sassTask() {
+    return src(files.sassPath)
+        .pipe(sourcemaps.init())
+        .pipe(sass().on("error", sass.logError))
+        .pipe(sass({ outputStyle: 'compressed' }).on('error', sass.logError))
+        .pipe(dest("pub/css"))
+        .pipe(browserSync.stream());
 }
+        
 //watcher
 function watchTask(){
     browserSync.init({
@@ -61,11 +73,11 @@ function watchTask(){
             baseDir: "./pub/"
         }
     });
-    watch([files.htmlPath, files.jsPath, files.cssPath, files.imgPath],
-         parallel(copyHTML,jsTask,imgTask,cssTask)
+    watch([files.htmlPath, files.jsPath, files.imgPath, files.sassPath],
+         parallel(copyHTML,jsTask,imgTask,sassTask)
          );
 }
 exports.default=series(
-    parallel(copyHTML,jsTask, imgTask, cssTask),
+    parallel(copyHTML,jsTask, imgTask, sassTask),
     watchTask
 );
