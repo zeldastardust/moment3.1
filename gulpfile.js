@@ -3,7 +3,7 @@ const concat = require("gulp-concat");
 const terser = require("gulp-terser");
 const sourcemaps= require("gulp-sourcemaps");
 const imagemin =require("gulp-imagemin");
-const postcss = require("gulp-postcss");
+//const postcss = require("gulp-postcss");
 const cssnano =require("cssnano");
 const autoprefixer=require("autoprefixer");
 const browserSync = require("browser-sync").create();
@@ -50,7 +50,7 @@ function imgTask(){
 function cssTask(){
     return src(files.cssPath)
     .pipe(sourcemaps.init())
-    .pipe(concat('styles.css'))
+    .pipe(concat('main.css'))
     .pipe(postcss([autoprefixer(),cssnano()]))
     .pipe(sourcemaps.write('.'))
     .pipe(dest('pub/css'))
@@ -61,10 +61,10 @@ function sassTask() {
     return src(files.sassPath)
         .pipe(sourcemaps.init())
         .pipe(sass().on("error", sass.logError))
-        .pipe(sass({ outputStyle: 'compressed' }).on('error', sass.logError))
         .pipe(dest("pub/css"))
         .pipe(browserSync.stream());
 }
+        
         
 //watcher
 function watchTask(){
@@ -74,7 +74,7 @@ function watchTask(){
         }
     });
     watch([files.htmlPath, files.jsPath, files.imgPath, files.sassPath],
-         parallel(copyHTML,jsTask,imgTask,sassTask)
+         parallel(copyHTML,jsTask,imgTask, sassTask)
          );
 }
 exports.default=series(
