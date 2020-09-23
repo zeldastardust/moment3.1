@@ -1,0 +1,93 @@
+body {
+  background-image: url("../images/buddha-709880_1280.jpg");
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+  opacity: 80%;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 50% 25% 25%;
+  size: 100vh;
+}
+
+#mainheader {
+  grid-area: 1/1/1/4;
+  width: 100%;
+  margin: 0 auto;
+  max-width: 960px;
+}
+#mainnav {
+  width: 100%;
+  text-align: right;
+  a:hover {
+    color: $sharpyellow;
+  }
+}
+.topnav {
+  overflow: hidden;
+  .icon {
+    display: none;
+  }
+  a {
+    margin: 1%;
+    text-align: center;
+    display: inline-block;
+    text-decoration: none;
+    background-color: $darkergreen;
+    border-radius: 10%;
+    box-shadow: 0px 0px 10px 5px $lightgreen;
+  }
+}
+
+.content {
+  padding: 2%;
+  grid-area: 2/2/2/4;
+  margin-top: 15%;
+
+  #box1 {
+    @include boxes;
+    background-color: $green;
+
+    h1 {
+      text-align: center;
+      color: $shinyellow;
+      font-size: 100%;
+      padding: 1%;
+    }
+  }
+}
+#box2 {
+  @include boxes($circle: true);
+  background-color: $lightgreen;
+  padding: 2%;
+  p {
+    font-size: 100%;
+    margin: 1%;
+    padding: 1%;
+  }
+}
+#box3 {
+  @extend #box1;
+  #logo {
+    max-width: 100%;
+  }
+}
+
+footer {
+  grid-area: 3/1/3/4;
+  bottom: 0;
+  text-align: center;
+  color: $yellow;
+  width: 100%;
+  position: absolute;
+
+  h3:hover {
+    color: $lightblack;
+  }
+  a {
+    text-decoration: none;
+    font-size: 70%;
+  }
+}

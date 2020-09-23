@@ -17,7 +17,7 @@ const files = {
     cssPath:"src/**/*.css",
     jsPath:"src/**/*.js",
     imgPath:"src/images/*",
-    sassPath:"src/**/*.scss"
+    sassPath:"src/sass/*.scss"
 };
 //kopiera html filer
 function copyHTML(){
@@ -60,11 +60,11 @@ function cssTask(){
 function sassTask() {
     return src(files.sassPath)
         .pipe(sourcemaps.init())
-        .pipe(sass().on("error", sass.logError))
-        .pipe(dest("pub/css"))
+        .pipe(sass({ outputStyle: 'compressed' }).on('error', sass.logError))
+        .pipe(sourcemaps.write('/.')) 
+        .pipe(dest('pub/css'))
         .pipe(browserSync.stream());
-}
-        
+}       
         
 //watcher
 function watchTask(){

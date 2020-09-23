@@ -1,5 +1,5 @@
-$blue:blue;
-
-header{
-    background-color: $blue;
-}
+@import 'base';
+@import 'component';
+@import 'layout';
+@import 'reset';
+@import 'smallscreens';

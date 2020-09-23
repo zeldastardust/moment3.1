@@ -1,2 +1,36 @@
 
 
+$green: #025951;
+$lightgreen: lighten($green, 15%);
+$darkergreen: saturate($green, 20%);
+
+$yellow: #f2f0ce;
+$sharpyellow: darken($yellow, 40%);
+$shinyellow: hsl(hue($yellow), 45%, 60%);
+
+$black:  #0D0D0D;
+$lightblack: lighten($black, 60%);
+
+h1,
+h3 {
+  font-family: "Cinzel Decorative", cursive;  
+}
+p,
+a {
+  font-family: "Playfair Display", serif;
+  color: $yellow;
+}
+
+@mixin boxes($circle: false) {
+  height: 60%;
+  width: 40%;
+  margin-top:  2%;
+  padding: 2%;
+  margin: auto auto;
+
+  @if $circle {
+    border-radius: 20%;
+  } @else {
+    border-radius: 10%;
+  }
+}
