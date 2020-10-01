@@ -9,6 +9,7 @@ const autoprefixer=require("autoprefixer");
 const browserSync = require("browser-sync").create();
 const sass = require('gulp-sass');
 sass.compiler=require('node-sass');
+const babel = require("gulp-babel");
 
 
 //sökvägar
@@ -30,6 +31,7 @@ function copyHTML(){
 function jsTask(){
     return src(files.jsPath)
     .pipe(sourcemaps.init())
+    .pipe(babel())
        .pipe(concat('main.js'))
        .pipe(terser())
        .pipe(sourcemaps.write('.'))
