@@ -12,6 +12,7 @@ sass.compiler=require('node-sass');
 const babel = require("gulp-babel");
 
 
+
 //sökvägar
 const files = {
     htmlPath:"src/**/*.html",
